@@ -7,7 +7,6 @@ public class Player {
 
     public Player(String name) {
         this.points = 0;
-        // QUESTION
         this.hand = new ArrayList<Card>();
     }
 
