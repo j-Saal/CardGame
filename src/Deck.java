@@ -5,10 +5,12 @@ public class Deck {
     private int cardsLeft;
 
     public Deck(String[] ranks, String[] suits, int[] values) {
+        deck = new ArrayList<Card>();
         for (int i = 0; i < ranks.length; i++) {
             deck.add(new Card(ranks[i], suits[i], values[i]));
-            cardsLeft++;
         }
+        cardsLeft = deck.size();
+        shuffle();
     }
 
     public boolean isEmpty() {
@@ -29,8 +31,8 @@ public class Deck {
         for (int i = cardsLeft - 1; i > 0; i--) {
             Card placeholder = deck.remove(i);
             int random = (int) (i * Math.random());
-            deck.add(i, deck.get(random));
-            deck.add(random, placeholder);
+            deck.add(deck.get(random));
+            deck.set(random, placeholder);
         }
     }
 }
