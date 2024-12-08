@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Finished and Tested Deck, Player and Card classes">
+    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Re-worked how cards are dealt in Deck Class (Player, Deck, and Card classes are tested and complete)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Deck.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -100,7 +99,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732143457253</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Re-worked how cards are dealt in Deck Class (Player, Deck, and Card classes are tested and complete)">
+      <option name="closed" value="true" />
+      <created>1733291971576</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1733291971576</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -118,6 +125,7 @@
     <MESSAGE value="Finished Player class&#10;Worked on Deck class" />
     <MESSAGE value="Finished Deck class (untested)" />
     <MESSAGE value="Finished and Tested Deck, Player and Card classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finished and Tested Deck, Player and Card classes" />
+    <MESSAGE value="Re-worked how cards are dealt in Deck Class (Player, Deck, and Card classes are tested and complete)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Re-worked how cards are dealt in Deck Class (Player, Deck, and Card classes are tested and complete)" />
   </component>
 </project>
