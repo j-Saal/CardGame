@@ -5,17 +5,30 @@ public class Player {
     private ArrayList<Card> hand;
     private String name;
     private boolean inRound;
+    private int bet;
 
     public Player(String name) {
         this.points = 1000;
         this.name = name;
         this.hand = new ArrayList<Card>();
+        inRound = true;
+        bet = 0;
     }
 
     public Player(ArrayList<Card> hand, String name) {
         this.hand = hand;
         this.name = name;
         this.points = 1000;
+        inRound = true;
+        bet = 0;
+    }
+
+    public int getBet() {
+        return bet;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
     }
 
     public int getPoints() {
@@ -24,6 +37,12 @@ public class Player {
 
     public ArrayList<Card> getHand() {
         return hand;
+    }
+
+    public ArrayList<Card> getVisibleHand() {
+        ArrayList<Card> visibleHand = new ArrayList<Card>(hand);
+        visibleHand.remove(0);
+        return visibleHand;
     }
 
     public boolean inRound() {

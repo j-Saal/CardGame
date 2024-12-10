@@ -60,7 +60,9 @@ public class Game {
 
     public void deal(int num) {
         for (Player player: players) {
-            player.addCard(d.deal());
+            for (int i = 0; i < num; i++) {
+                player.addCard(d.deal());
+            }
         }
     }
 
@@ -68,49 +70,65 @@ public class Game {
         int activePlayers = players.size();
         boolean roundInProgress = true;
         int checks = 0;
+        int calls = 0;
+        currentBet = 0;
         while (roundInProgress) {
-            roundInProgress = false;
-            checks = 0;
             for (Player currentPlayer : players) {
                 if (currentPlayer.inRound()) {
+                    System.out.println("Cards visible to all on the table: ");
+                    for (Player player : players) {
+                        System.out.println(player.getName() + "'s hand: " + player.getVisibleHand());
+                    }
                     System.out.println(currentPlayer.getName() + ", it's your turn.");
-                    System.out.println(currentPlayer.getHand());
+                    System.out.println("Your Hand: " + currentPlayer.getHand());
                     System.out.println("Current bet: " + currentBet + ", Pot: " + currentBet);
                     System.out.println("Your balance: " + currentPlayer.getPoints());
                     System.out.println("Options: 1) Call 2) Raise 3) Fold 4) Check");
                     int choice = input.nextInt();
                     if (choice == 1) {
                         if (currentPlayer.checkPoints(currentBet)) {
-                            currentBet += currentBet;
+                            int callAmount = currentBet - currentPlayer.getBet();
                             currentPlayer.addPoints(-currentBet);
+                            currentPlayer.setBet(currentBet);
+                            pot += callAmount;
+                            calls++;
+                        } else {
+                            System.out.println("Insufficient Funds: Folded");
+                            currentPlayer.setStatus(false);
+                            activePlayers--;
                         }
-                    }
-                    else if (choice == 2) {
+                    } else if (choice == 2) {
                         System.out.println("Enter your raise amount: ");
                         int raiseAmount = input.nextInt();
                         int totalBet = currentBet + raiseAmount;
                         if (currentPlayer.checkPoints(totalBet)) {
-                            currentBet = totalBet;
-                            currentPlayer.addPoints(-currentBet);
-                            pot += currentBet;
+                            int raiseAmountToAdd = totalBet - currentPlayer.getBet();
+                            currentPlayer.addPoints(-raiseAmountToAdd);
+                            currentPlayer.setBet(totalBet);
+                            pot += raiseAmountToAdd;
+                            calls = 1;
+                            checks = 0;
                             roundInProgress = true;
+                        } else {
+                            System.out.println("Insufficient Funds - Folded:(");
+                            currentPlayer.setStatus(false);
+                            activePlayers--;
                         }
-                        else {
-                            System.out.println("Insufficient Funds :(");
-                        }
-                    }
-                    else if (choice == 3) {
+                    } else if (choice == 3) {
                         System.out.println(currentPlayer.getName() + " folds.");
                         currentPlayer.setStatus(false);
                         activePlayers--;
-                    }
-                    else if (choice == 4) {
+                    } else if (choice == 4) {
                         System.out.println(currentPlayer.getName() + " checks.");
                         checks++;
                     }
                 }
             }
-            if (activePlayers == 1 || checks == activePlayers) {
+            if (activePlayers == 1) {
+                roundInProgress = false;
+            }
+            if (calls == activePlayers || checks == activePlayers) {
+                System.out.println("Betting round complete...Dealing next cards.");
                 roundInProgress = false;
             }
         }
