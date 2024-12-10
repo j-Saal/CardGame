@@ -4,9 +4,10 @@ public class Player {
     private int points;
     private ArrayList<Card> hand;
     private String name;
+    private boolean inRound;
 
     public Player(String name) {
-        this.points = 0;
+        this.points = 1000;
         this.name = name;
         this.hand = new ArrayList<Card>();
     }
@@ -14,7 +15,7 @@ public class Player {
     public Player(ArrayList<Card> hand, String name) {
         this.hand = hand;
         this.name = name;
-        this.points = 0;
+        this.points = 1000;
     }
 
     public int getPoints() {
@@ -25,12 +26,24 @@ public class Player {
         return hand;
     }
 
+    public boolean inRound() {
+        return inRound;
+    }
+
+    public void setStatus(boolean input) {
+        this.inRound = input;
+    }
+
     public String getName() {
         return name;
     }
 
     public void addPoints(int points) {
         this.points += points;
+    }
+
+    public boolean checkPoints(int bet) {
+        return bet < points;
     }
 
     public void addCard(Card toAdd) {
