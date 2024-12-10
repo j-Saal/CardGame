@@ -1,3 +1,4 @@
+// 5 Card Stud by Jared Saal
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -36,20 +37,10 @@ public class Game {
         deal(2);
         roundBetting();
         for (int i = 0; i < 3; i++) {
-            for (Player player: players) {
-                player.setStatus(true);
-            }
             deal(1);
             roundBetting();
         }
-        double winner = printWinner();
-        for (Player player: players) {
-            if (winner == handValue(player.getHand())) {
-                System.out.println(player.getName() + " wins!");
-                player.addPoints(pot);
-                pot = 0;
-            }
-        }
+        printWinner();
     }
 
     public void printInstructions() {
@@ -60,88 +51,130 @@ public class Game {
 
     public void deal(int num) {
         for (Player player: players) {
-            for (int i = 0; i < num; i++) {
-                player.addCard(d.deal());
+            if (player.inRound()) {
+                for (int i = 0; i < num; i++) {
+                    player.addCard(d.deal());
+                }
             }
         }
     }
 
     public void roundBetting() {
-        int activePlayers = players.size();
+        int activePlayers = 0;
+        for (Player player : players) {
+            if (player.inRound()) {
+                activePlayers++;
+            }
+        }
+
         boolean roundInProgress = true;
         int checks = 0;
         int calls = 0;
         currentBet = 0;
+
         while (roundInProgress) {
             for (Player currentPlayer : players) {
-                if (currentPlayer.inRound()) {
-                    System.out.println("Cards visible to all on the table: ");
-                    for (Player player : players) {
+                if (!currentPlayer.inRound()) {
+                    continue;
+                }
+
+                System.out.println("Cards visible to all on the table: ");
+                for (Player player : players) {
+                    if (player.inRound()) {
                         System.out.println(player.getName() + "'s hand: " + player.getVisibleHand());
                     }
-                    System.out.println(currentPlayer.getName() + ", it's your turn.");
-                    System.out.println("Your Hand: " + currentPlayer.getHand());
-                    System.out.println("Current bet: " + currentBet + ", Pot: " + currentBet);
-                    System.out.println("Your balance: " + currentPlayer.getPoints());
-                    System.out.println("Options: 1) Call 2) Raise 3) Fold 4) Check");
-                    int choice = input.nextInt();
-                    if (choice == 1) {
-                        if (currentPlayer.checkPoints(currentBet)) {
-                            int callAmount = currentBet - currentPlayer.getBet();
-                            currentPlayer.addPoints(-currentBet);
-                            currentPlayer.setBet(currentBet);
-                            pot += callAmount;
-                            calls++;
-                        } else {
-                            System.out.println("Insufficient Funds: Folded");
-                            currentPlayer.setStatus(false);
-                            activePlayers--;
-                        }
-                    } else if (choice == 2) {
-                        System.out.println("Enter your raise amount: ");
-                        int raiseAmount = input.nextInt();
-                        int totalBet = currentBet + raiseAmount;
-                        if (currentPlayer.checkPoints(totalBet)) {
-                            int raiseAmountToAdd = totalBet - currentPlayer.getBet();
-                            currentPlayer.addPoints(-raiseAmountToAdd);
-                            currentPlayer.setBet(totalBet);
-                            pot += raiseAmountToAdd;
-                            calls = 1;
-                            checks = 0;
-                            roundInProgress = true;
-                        } else {
-                            System.out.println("Insufficient Funds - Folded:(");
-                            currentPlayer.setStatus(false);
-                            activePlayers--;
-                        }
-                    } else if (choice == 3) {
-                        System.out.println(currentPlayer.getName() + " folds.");
+                }
+
+                System.out.println(currentPlayer.getName() + ", it's your turn.");
+                System.out.println("Your Hand: " + currentPlayer.getHand());
+                System.out.println("Current bet: " + currentBet + ", Pot: " + pot);
+                System.out.println("Your balance: " + currentPlayer.getPoints());
+                System.out.println("Options: 1) Call 2) Raise 3) Fold 4) Check");
+
+                int choice = input.nextInt();
+
+                if (choice == 1) {
+                    int callAmount = currentBet - currentPlayer.getBet();
+                    if (currentPlayer.checkPoints(callAmount)) {
+                        currentPlayer.addPoints(-callAmount);
+                        currentPlayer.setBet(currentBet);
+                        pot += callAmount;
+                        calls++;
+                    }
+                    else {
+                        System.out.println("Insufficient funds: Folded");
                         currentPlayer.setStatus(false);
                         activePlayers--;
-                    } else if (choice == 4) {
-                        System.out.println(currentPlayer.getName() + " checks.");
-                        checks++;
+                        printFoldWinner(activePlayers);
                     }
                 }
+                else if (choice == 2) {
+                    System.out.println("Enter your raise amount: ");
+                    int raiseAmount = input.nextInt();
+                    int totalBet = currentBet + raiseAmount;
+                    if (currentPlayer.checkPoints(totalBet)) {
+                        int raiseAmountToAdd = totalBet - currentPlayer.getBet();
+                        currentPlayer.addPoints(-raiseAmountToAdd);
+                        currentPlayer.setBet(totalBet);
+                        pot += raiseAmountToAdd;
+                        currentBet = totalBet;
+                        calls = 1;
+                        checks = 0;
+                    }
+                    else {
+                        System.out.println("Insufficient funds: Folded");
+                        currentPlayer.setStatus(false);
+                        activePlayers--;
+                        printFoldWinner(activePlayers);
+                    }
+                }
+                else if (choice == 3) {
+                    System.out.println(currentPlayer.getName() + " folds.");
+                    currentPlayer.setStatus(false);
+                    activePlayers--;
+                    printFoldWinner(activePlayers);
+                }
+                else if (choice == 4) {
+                    System.out.println(currentPlayer.getName() + " checks.");
+                    checks++;
+                }
+                else {
+                    System.out.println("Invalid choice. Please try again.");
+                }
+
             }
-            if (activePlayers == 1) {
-                roundInProgress = false;
-            }
-            if (calls == activePlayers || checks == activePlayers) {
-                System.out.println("Betting round complete...Dealing next cards.");
+
+            if (checks == activePlayers || calls == activePlayers) {
+                System.out.println("Betting round complete. Dealing next card...");
                 roundInProgress = false;
             }
         }
     }
 
-    public double printWinner() {
+    public void printFoldWinner(int playersLeft) {
+        if (playersLeft == 1) {
+            for (Player player: players) {
+                if (player.inRound()) {
+                    System.out.println(player.getName() + " wins!");
+                    player.addPoints(pot);
+                    pot = 0;
+                    return;
+                }
+            }
+        }
+    }
+    public void printWinner() {
         double max = 0;
+        Player winner = null;
         for (Player player: players) {
             if (max < handValue(player.getHand())) {
                 max = handValue(player.getHand());
+                winner = player;
             }
         }
-        return max;
+        System.out.println(winner.getName() + " wins!");
+        winner.addPoints(pot);
+        pot = 0;
     }
 
     public double handValue(ArrayList<Card> hand) {

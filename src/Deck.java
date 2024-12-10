@@ -1,9 +1,11 @@
 import java.util.ArrayList;
 
 public class Deck {
+    // Instance Variables
     private ArrayList<Card> deck;
     private int cardsLeft;
 
+    // Deck constructor
     public Deck(String[] ranks, String[] suits, int[] values) {
         deck = new ArrayList<Card>();
         for (int i = 0; i < ranks.length; i++) {
@@ -15,13 +17,17 @@ public class Deck {
         shuffle();
     }
 
+    // Check if deck is empty
     public boolean isEmpty() {
         return cardsLeft == 0;
     }
+
+    // Return num cards left
     public int getCardsLeft() {
         return cardsLeft;
     }
 
+    // Deal a card
     public Card deal() {
         if (isEmpty()) {
             return null;
@@ -29,6 +35,7 @@ public class Deck {
         return deck.get(--cardsLeft);
     }
 
+    // Shuffle cards
     public void shuffle() {
         for (int i = cardsLeft - 1; i > 0; i--) {
             Card placeholder = deck.remove(i);
