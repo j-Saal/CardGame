@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Working edited instance variables for player class and restructured some of betting">
+    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Ending each round works now&#10;Comments added to Card, Deck, and Player">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
     </list>
@@ -131,7 +131,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733810074954</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Ending each round works now&#10;Comments added to Card, Deck, and Player">
+      <option name="closed" value="true" />
+      <created>1733860501529</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1733860501529</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +161,7 @@
     <MESSAGE value="Started Game Class - first draft of checking hands and suits and high cards" />
     <MESSAGE value="Finished First Draft of Game Class - betting added and playability improved" />
     <MESSAGE value="Working edited instance variables for player class and restructured some of betting" />
-    <option name="LAST_COMMIT_MESSAGE" value="Working edited instance variables for player class and restructured some of betting" />
+    <MESSAGE value="Ending each round works now&#10;Comments added to Card, Deck, and Player" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ending each round works now&#10;Comments added to Card, Deck, and Player" />
   </component>
 </project>
