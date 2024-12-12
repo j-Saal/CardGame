@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed">
+    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="All Done!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -148,7 +147,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733879544670</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="All Done!">
+      <option name="closed" value="true" />
+      <created>1733974223970</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1733974223970</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -172,6 +179,7 @@
     <MESSAGE value="Working edited instance variables for player class and restructured some of betting" />
     <MESSAGE value="Ending each round works now&#10;Comments added to Card, Deck, and Player" />
     <MESSAGE value="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed" />
+    <MESSAGE value="All Done!" />
+    <option name="LAST_COMMIT_MESSAGE" value="All Done!" />
   </component>
 </project>

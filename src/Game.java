@@ -307,7 +307,9 @@ public class Game {
         int max = Integer.MIN_VALUE;
         // Sorts hand smallest to greatest
         for (int i = 0; i < 5; i++) {
-            nums[i] = hand.get(i).getValue();
+            if (hand.size() > i) {
+                nums[i] = hand.get(i).getValue();
+            }
             if (nums[i] < min) {
                 min = nums[i];
             }
