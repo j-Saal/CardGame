@@ -58,6 +58,12 @@ public class Player {
         return inRound;
     }
 
+    public void resetHand() {
+        while (hand.size() > 0) {
+            hand.remove(0);
+        }
+    }
+
     // Change status of player
     public void setStatus(boolean input) {
         this.inRound = input;

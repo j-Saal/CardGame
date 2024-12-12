@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Ending each round works now&#10;Comments added to Card, Deck, and Player">
+    <list default="true" id="7e0dd52f-9180-46e1-94c3-162e7c0447aa" name="Changes" comment="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,14 +45,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.Game.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.Game.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Game" />
@@ -139,7 +140,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733860501529</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed">
+      <option name="closed" value="true" />
+      <created>1733879544670</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1733879544670</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -162,6 +171,7 @@
     <MESSAGE value="Finished First Draft of Game Class - betting added and playability improved" />
     <MESSAGE value="Working edited instance variables for player class and restructured some of betting" />
     <MESSAGE value="Ending each round works now&#10;Comments added to Card, Deck, and Player" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ending each round works now&#10;Comments added to Card, Deck, and Player" />
+    <MESSAGE value="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finally Done? Comments completed and two pair and three of a kind tiebeaker logic fixed" />
   </component>
 </project>

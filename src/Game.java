@@ -32,21 +32,31 @@ public class Game {
 
     // Play the game
     public void playGame() {
+        boolean gameInProgress = true;
         // Print instructions for 5 card stud
         printInstructions();
         // Ask for and initialize each player
         setUpPlayers();
-        // Deal the first two cards (one face up, one face down)
-        deal(2);
-        // First round of betting
-        roundBetting();
-        // Deal a card and bet 3x until hand has 5 cards or someone wins
-        for (int i = 0; i < 3; i++) {
-            deal(1);
+        while (gameInProgress) {
+            // Reset player's hand and put them back into the game
+            for (Player player : players) {
+                player.resetHand();
+                player.setStatus(true);
+            }
+            // Deal the first two cards (one face up, one face down)
+            deal(2);
+            // First round of betting
             roundBetting();
+            // Deal a card and bet 3x until hand has 5 cards or someone wins
+            for (int i = 0; i < 3; i++) {
+                if (playersLeft() > 1) {
+                    deal(1);
+                    roundBetting();
+                }
+            }
+            // Calculate winner, print their name and update total chips
+            printWinner(0);
         }
-        // Calculate winner, print their nam,e and update total chips
-        printWinner(0);
     }
 
     // Prints game instructions
@@ -79,51 +89,65 @@ public class Game {
         }
     }
 
-    public void roundBetting() {
-        int activePlayers = 0;
-        for (Player player : players) {
+    public int playersLeft() {
+        int numPlayers = 0;
+        for (Player player: players) {
             if (player.inRound()) {
-                activePlayers++;
+                numPlayers++;
             }
         }
+        return numPlayers;
+    }
 
+    public void roundBetting() {
+        // Counts number of players in the round
+        int activePlayers = playersLeft();
+
+        // Sets roundInProgress to true and initializes calls, checks, and current bet to 0
         boolean roundInProgress = true;
-        int checks = 0;
-        int calls = 0;
         currentBet = 0;
 
+        // Executes betting as long as round is in progress
         while (roundInProgress) {
+            // Reset betting values
+            int checks = 0;
+            int calls = 0;
+            // Betting for each player in the round
             for (Player currentPlayer : players) {
                 if (!currentPlayer.inRound()) {
                     continue;
                 }
 
+                // Prints visible cards (first card is face down)
                 System.out.println("Cards visible to all on the table: ");
                 for (Player player : players) {
                     if (player.inRound()) {
                         System.out.println(player.getName() + "'s hand: " + player.getVisibleHand());
                     }
                 }
-
+                // Prints status of game
                 System.out.println(currentPlayer.getName() + ", it's your turn.");
                 System.out.println("Your Hand: " + currentPlayer.getHand());
                 System.out.println("Current bet: " + currentBet + ", Pot: " + pot);
                 System.out.println("Your balance: " + currentPlayer.getPoints());
                 System.out.println("Options: 1) Call/Check 2) Raise 3) Fold");
-
+                // Get choice from player and do subsequent action
                 int choice = input.nextInt();
-
+                // Call or Check
                 if (choice == 1) {
                     int callAmount = currentBet - currentPlayer.getBet();
+                    // If no bet, then check
                     if (currentBet == 0) {
                         checks++;
                     }
+                    // If can bet, then place the bet
                     else if (currentPlayer.checkPoints(callAmount)) {
                         currentPlayer.addPoints(-callAmount);
                         currentPlayer.setBet(currentBet);
                         pot += callAmount;
                         calls++;
                     }
+                    // If can't place the bet, then fold
                     else {
                         System.out.println("Insufficient funds: Folded");
                         currentPlayer.setStatus(false);
@@ -131,19 +155,24 @@ public class Game {
                         printWinner(activePlayers);
                     }
                 }
+                // Raise
                 else if (choice == 2) {
                     System.out.println("Enter your raise amount: ");
                     int raiseAmount = input.nextInt();
                     int totalBet = currentBet + raiseAmount;
+                    // If sufficient funds to raise, then place bet
                     if (currentPlayer.checkPoints(totalBet)) {
                         int raiseAmountToAdd = totalBet - currentPlayer.getBet();
                         currentPlayer.addPoints(-raiseAmountToAdd);
                         currentPlayer.setBet(totalBet);
                         pot += raiseAmountToAdd;
                         currentBet = totalBet;
+                        // Add 1 to calls, because current player has put down the bet
                         calls = 1;
+                        // If raise, reset checks to 0
                         checks = 0;
                     }
+                    // If insufficient funds, then fold
                     else {
                         System.out.println("Insufficient funds: Folded");
                         currentPlayer.setStatus(false);
@@ -151,18 +180,25 @@ public class Game {
                         printWinner(activePlayers);
                     }
                 }
+                // Fold
                 else if (choice == 3) {
                     System.out.println(currentPlayer.getName() + " folds.");
                     currentPlayer.setStatus(false);
                     activePlayers--;
                     printWinner(activePlayers);
                 }
+                // Any other choice is invalid
                 else {
                     System.out.println("Invalid choice. Please try again.");
                 }
-
+                if (activePlayers == 1) {
+                    roundInProgress = false;
+                    printWinner(activePlayers);
+                    return;
+                }
             }
 
+            // Round betting ended if everyone checks or everyone calls
             if (checks == activePlayers || calls == activePlayers) {
                 System.out.println("Betting round complete. Dealing next card...");
                 roundInProgress = false;
